@@ -1,86 +1,77 @@
-# RoboSort
+# RoboSort: Automated Lid Separation for Yogurt Containers
 
-This project focuses on simulating robotic grasping tasks using the Franka Emika Panda robot within the PyBullet physics simulation environment. The primary objective is to develop and execute various grasping scenarios, such as lifting a lid from a cup, by leveraging PyBullet's capabilities to model and control robotic interactions.
+## Overview
+
+RoboSort is an innovative robotic system designed to automate the separation of aluminum lids from plastic yogurt containers, enhancing recycling efficiency and reducing manual intervention in waste processing facilities. The system leverages a digital twin simulation framework using the Franka Emika Panda robot within the PyBullet physics simulation environment.
+
+## Key Features
+
+- **Digital Twin Simulation**: Utilizes PyBullet to create a realistic simulation environment for the Franka Emika Panda robot, modeling interactions between the robot, cup, and lid.
+- **CNN-Based Grasp Detection**: Employs a Convolutional Neural Network (CNN) to accurately detect optimal grasp points for the robot to lift and separate lids from containers.
+- **Dynamic Mesh Modeling**: Supports various lid configurations through dynamic mesh modeling, allowing the system to adapt to different container designs.
+- **Synthetic Dataset Generation**: Generates synthetic datasets to train the CNN model, enhancing its accuracy in grasp point detection.
+- **Real-Time Depth Sensing and Motion Planning**: Incorporates depth sensing and motion planning algorithms to enable the robot to perform precise and adaptive movements during the separation process.
+- **Progressive Force Adaptation**: Implements force control strategies to ensure reliable and gentle separation of lids without damaging the containers.
+
+## System Architecture
+
+The project comprises several interconnected components:
+
+1. **3D Modeling & Simulation**: Creates a simulated environment with dynamic mesh models of yogurt cups and lids, configurable lid angles, and physics properties using PyBullet.
+2. **CNN-Based Grasp Detection**: Utilizes a ResNet50v2-based CNN model trained on a diverse dataset, achieving high accuracy in real-time grasp point prediction.
+3. **Motion Planning & Control**: Employs inverse kinematics, force-sensitive grasping, collision avoidance, and trajectory optimization to execute precise robotic movements.
 
 ## Project Structure
 
-- **3dmodels/**  
-  Contains 3D models used for simulation or design purposes.
-  
-- **CNN_Model/**  
-  Houses the implementation, training scripts, and resources for the CNN model that performs object classification.
-  
-- **scripts/**  
-  Contains scripts for managing robot operations, control sequences, and integrating the CNN classifier with hardware commands.
-  
-- **static/** and **templates/**  
-  Provide assets and HTML templates for the web interface/dashboard used to monitor and control the system.
-  
-- **Help.docx**  
-  Additional documentation with setup details, usage guidelines, and troubleshooting information.
-  
-- **requirements.txt**  
-  A list of Python dependencies required to run the project.
-
-- **README.md**  
-  (This file) provides an overview of the project, installation instructions, usage details, and more.
-
-## Features
-
-- **Automated Lid Separation :**  
-  Utilizes a CNN-based classifier to detect the grasping point and separate lid.
-  
-- **Robotic Control Integration:**  
-  Seamless coordination between machine learning models and robotic control scripts to execute separation task.
-  
-- **User Interface:**  
-  A web-based dashboard for monitoring system performance and managing operations.
-  
-- **3D Simulation:**  
-  Leverages 3D models for simulating sorting operations, assisting in design and testing (if applicable).
+- **3dmodels/**: Contains 3D models used for simulation.
+- **CNN_Model/**: Includes the implementation and training scripts for the CNN-based grasp detection model.
+- **scripts/**: Houses scripts for robot operations, control sequences, and integration of the CNN classifier with hardware commands.
+- **static/** and **templates/**: Provide assets and HTML templates for the web interface/dashboard used to monitor and control the system.
+- **Help.docx**: Offers additional documentation with setup details, usage guidelines, and troubleshooting information.
+- **requirements.txt**: Lists Python dependencies required to run the project.
+- **README.md**: This file, providing an overview of the project, installation instructions, usage details, and more.
 
 ## Installation
 
-1. **Clone the Repository:**
+1. **Clone the Repository**:
    ```bash
-   git clone https://github.com/Tanyash04/RoboSort.git
+   git clone https://github.com/yourusername/RoboSort.git
    ```
-2. **Navigate to the Project Directory:**
+2. **Navigate to the Project Directory**:
    ```bash
    cd RoboSort
    ```
-3. **Install Dependencies:**
-   Ensure you have Python installed, then run:
+3. **Install Dependencies**:
+   Ensure you have Python 3.8 or higher installed, then run:
    ```bash
    pip install -r requirements.txt
    ```
-4. **Additional Setup:**
+4. **Additional Setup**:
    - Refer to `Help.docx` for detailed setup instructions and hardware configuration.
-   - Adjust configuration settings (if any) as per your environment.
+   - Adjust configuration settings as per your environment.
 
 ## Usage
 
-- **Launching the Dashboard:**
-  - Start the web server to access the system dashboard:
+- **Launching the Simulation**:
+  - Run the main application script to start the simulation:
     ```bash
     python app.py
     ```
-  - Open your browser and navigate to `http://localhost:5000` (or the configured port) to monitor operations.
+  - Access the web-based dashboard by navigating to `http://localhost:5000` in your browser to monitor and control operations.
 
 ## Contributing
 
 Contributions are welcome! To contribute:
+
 - Fork the repository.
 - Create a new branch for your feature or bug fix.
 - Ensure your code follows the project’s style guidelines and includes appropriate tests.
 - Submit a pull request with a clear description of your changes.
 
-
 ## Acknowledgments
 
-- Special thanks to all contributors, mentors, and supporters who have helped bring RoboSort to life.
-- This project builds upon various open source libraries and frameworks that have made this work possible.
+Special thanks to all contributors, mentors, and supporters who have helped bring RoboSort to life. This project builds upon various open-source libraries and frameworks that have made this work possible.
 
 ## Contact
 
-For questions or further information, please open an issue on GitHub or contact the repository maintainer.
+For questions or further information, please open an issue on GitHub or contact the repository maintainer. 
