@@ -1,6 +1,5 @@
 # RoboSort
 
-RoboSort is an integrated robotic sorting system that leverages machine learning and automation to identify, classify, and sort objects in real time. By combining a Convolutional Neural Network (CNN) model with robotic control scripts and a web-based dashboard, RoboSort aims to streamline sorting tasks in both simulated and real-world environments.
 
 ## Project Structure
 
