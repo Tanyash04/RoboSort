@@ -1,5 +1,6 @@
 # RoboSort
 
+This project focuses on simulating robotic grasping tasks using the Franka Emika Panda robot within the PyBullet physics simulation environment. The primary objective is to develop and execute various grasping scenarios, such as lifting a lid from a cup, by leveraging PyBullet's capabilities to model and control robotic interactions.
 
 ## Project Structure
 
