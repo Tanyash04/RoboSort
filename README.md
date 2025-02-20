@@ -60,17 +60,6 @@ RoboSort is an integrated robotic sorting system that leverages machine learning
 
 ## Usage
 
-- **Training the CNN Model:**
-  - Navigate to the `CNN_Model/` directory.
-  - Run the training script to build or update the object classifier:
-    ```bash
-    python train.py
-    ```
-- **Running the Robotic Sorting Process:**
-  - From the `scripts/` directory, execute the main control script:
-    ```bash
-    python main.py
-    ```
 - **Launching the Dashboard (if applicable):**
   - Start the web server to access the system dashboard:
     ```bash
