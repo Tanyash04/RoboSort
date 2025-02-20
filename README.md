@@ -27,11 +27,11 @@ RoboSort is an integrated robotic sorting system that leverages machine learning
 
 ## Features
 
-- **Automated Object Sorting:**  
-  Utilizes a CNN-based classifier to detect and sort various objects.
+- **Automated Lid Separation :**  
+  Utilizes a CNN-based classifier to detect the grasping point and separate lid.
   
 - **Robotic Control Integration:**  
-  Seamless coordination between machine learning models and robotic control scripts to execute sorting tasks.
+  Seamless coordination between machine learning models and robotic control scripts to execute separation task.
   
 - **User Interface:**  
   A web-based dashboard for monitoring system performance and managing operations.
@@ -60,7 +60,7 @@ RoboSort is an integrated robotic sorting system that leverages machine learning
 
 ## Usage
 
-- **Launching the Dashboard (if applicable):**
+- **Launching the Dashboard:**
   - Start the web server to access the system dashboard:
     ```bash
     python app.py
