@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RoboSort</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Tutorials Dropdown Toggle
+            let tutorialButton = document.getElementById("openTutorialDropdown");
+            let tutorialDropdown = document.getElementById("tutorialDropdownList");
+
+            tutorialButton.addEventListener("click", function () {
+                tutorialDropdown.style.display = tutorialDropdown.style.display === "block" ? "none" : "block";
+            });
+
+            document.addEventListener("click", function (event) {
+                if (!tutorialButton.contains(event.target) && !tutorialDropdown.contains(event.target)) {
+                    tutorialDropdown.style.display = "none";
+                }
+            });
+        });
+
+        async function startFile(file) {
+            let response = await fetch('/start_simulation', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ file })
+            });
+            let data = await response.json();
+            alert(data.status);
+            document.getElementById('video-feed').src = "/video_feed";
+        }
+
+        async function stopSimulation() {
+            let response = await fetch('/stop_simulation', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' }
+            });
+            let data = await response.json();
+            alert(data.status);
+            document.getElementById('video-feed').src = "SVKI.gif";
+        }
+
+        async function loadHelp() {
+            let response = await fetch('/help');
+            let data = await response.json();
+            document.getElementById('help-content').innerHTML = data.help_content.replace(/\n/g, "<br>");
+            document.getElementById('help-modal').style.display = 'flex';
+        }
+
+        function closeHelp() {
+            document.getElementById('help-modal').style.display = 'none';
+        }
+
+        function showTutorial(videoSrc) {
+            let video = document.getElementById("tutorial-video");
+            video.src = videoSrc;
+            document.getElementById("tutorialPopup").style.display = "flex";
+        }
+
+        function hideTutorial() {
+            let video = document.getElementById("tutorial-video");
+            video.pause();
+            video.src = "";
+            document.getElementById("tutorialPopup").style.display = "none";
+        }
+
+        async function updateCamera() {
+            let angle = document.getElementById('camera-angle').value;
+            let distance = document.getElementById('camera-distance').value;
+            let height = document.getElementById('camera-height').value;
+
+            await fetch('/update_camera', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ angle, distance, height })
+            });
+
+            console.log("Camera updated: ", { angle, distance, height });
+        }
+    </script>
+
+</head>
+<body>
+    <div class="page-layout">
+        <div class="header-content">
+            <h1>
+                <img src="{{ url_for('static', filename='robosort-logo.png') }}" alt="RoboSort Logo" class="logo">
+                RoboSort
+            </h1>
+        </div>
+
+        <div class="main-container">
+            <div class="button-container">
+                <div class="button-group">
+                    <button onclick="startFile('Lid_15')">Run Lid at 30°</button>
+                    <button onclick="startFile('Lid_60')">Run Lid at 60°</button>
+                    <button onclick="startFile('Lid_square_90')">Run Lid at 90°</button>
+                    <button onclick="startFile('Lid_120')">Run Lid at 120°</button>
+                    <button onclick="startFile('Lid_var1')">Run Lid variation</button>
+                    <button onclick="startFile('Test')">Test</button>
+                    <button class="stop-btn" onclick="stopSimulation()">Stop Simulation</button>
+                </div>
+
+                <div class="slider-container">
+                    <label for="camera-angle">Rotate Camera (0° - 360°)</label>
+                    <input type="range" id="camera-angle" min="0" max="360" value="323" step="1" oninput="updateCamera()">
+
+                    <label for="camera-distance">Camera Distance (0.5 - 2.0)</label>
+                    <input type="range" id="camera-distance" min="0.5" max="2.0" value="1.3" step="0.1" oninput="updateCamera()">
+
+                    <label for="camera-height">Camera Height (0.2 - 1.5)</label>
+                    <input type="range" id="camera-height" min="0.2" max="1.5" value="0.7" step="0.1" oninput="updateCamera()">
+                </div>
+            </div>
+
+            <div class="video-container">
+                Live Preview
+                <img id="video-feed" src="/video_feed" alt="Live simulation feed">
+            </div>
+        </div>
+    </div>
+
+    <!-- Tutorials Dropdown -->
+    <div class="dropdown-wrapper">
+        <button class="tutorial-dropdown-btn" id="openTutorialDropdown">Tutorials</button>
+        <ul class="tutorial-dropdown-menu" id="tutorialDropdownList">
+            <li><a class="tutorial-item" href="#" onclick="showTutorial('static/lid_tutorial_1.mp4')">Lid Tutorial 1</a></li>
+            <li><a class="tutorial-item" href="#" onclick="showTutorial('static/lid_tutorial_2.mp4')">Lid Tutorial 2</a></li>
+        </ul>
+    </div>
+
+    <!-- Tutorial Modal -->
+    <div id="tutorialPopup" class="popup-overlay">
+        <div class="popup-box">
+            <div class="popup-header">
+                <h5 class="popup-title">Tutorial Video</h5>
+                <span class="popup-close-btn" onclick="hideTutorial()">&times;</span>
+            </div>
+            <div class="popup-body">
+                <video id="tutorial-video" width="100%" controls></video>
+            </div>
+        </div>
+    </div>
+
+    <!-- Help Button -->
+    <button id="help-button" onclick="loadHelp()">Help</button>
+    <div id="help-modal" class="help-modal" onclick="closeHelp()">
+        <div class="help-content" onclick="event.stopPropagation()">
+            <span class="help-close" onclick="closeHelp()">&times;</span>
+            <h2 >Help & FAQ</h2>
+            <pre id="help-content" class="help-body">Loading...</pre>
+        </div>
+    </div>
+
+</body>
+</html>
